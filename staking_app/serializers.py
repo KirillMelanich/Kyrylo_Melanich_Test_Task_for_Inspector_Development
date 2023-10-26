@@ -14,14 +14,12 @@ class UserWalletSerializer(serializers.ModelSerializer):
 
 
 class UserPositionSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = UserPosition
-        fields = '__all__'
+        fields = "__all__"
 
 
 class StackingPoolSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = StackingPool
         fields = ("id", "name", "description", "stack_holders", "created_at")
@@ -34,4 +32,4 @@ class StackingPoolDetailSerializer(StackingPoolSerializer):
 class PoolConditionsSerializer(serializers.ModelSerializer):
     class Meta:
         model = PoolConditions
-        fields = '__all__'
+        fields = "__all__"
