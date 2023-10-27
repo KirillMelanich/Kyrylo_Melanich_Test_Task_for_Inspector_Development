@@ -1,8 +1,7 @@
 from rest_framework import viewsets
-from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from .models import UserWallet, UserPosition, StakingPool, PoolConditions
-from .permissions import IsAdminOrIfAuthentificatedReadOnly
+from .permissions import IsAdminOrIfAuthentificatedReadOnly, IsAdminUser, IsAuthenticatedReadOnly
 from .serializers import (
     UserWalletSerializer,
     UserPositionSerializer,
@@ -15,7 +14,7 @@ from .serializers import (
 class UserWalletViewSet(viewsets.ModelViewSet):
     queryset = UserWallet.objects.all()
     serializer_class = UserWalletSerializer
-    permission_classes = (IsAdminOrIfAuthentificatedReadOnly, )
+    permission_classes = (IsAdminOrIfAuthentificatedReadOnly,)
 
     def get_serializer_class(self):
         if self.action == "retrieve":
@@ -37,7 +36,7 @@ class UserPositionViewSet(viewsets.ModelViewSet):
 class StackingPoolViewSet(viewsets.ModelViewSet):
     queryset = StakingPool.objects.all().prefetch_related("stak_holders")
     serializer_class = StakingPoolSerializer
-    permission_classes = (IsAdminOrIfAuthentificatedReadOnly,)
+    permission_classes = [IsAdminUser | IsAuthenticatedReadOnly]
 
     def get_serializer_class(self):
         if self.action == "retrieve":
@@ -48,3 +47,4 @@ class StackingPoolViewSet(viewsets.ModelViewSet):
 class PoolConditionsViewSet(viewsets.ModelViewSet):
     queryset = PoolConditions.objects.all()
     serializer_class = PoolConditionsSerializer
+    permission_classes = [IsAdminUser | IsAuthenticatedReadOnly]

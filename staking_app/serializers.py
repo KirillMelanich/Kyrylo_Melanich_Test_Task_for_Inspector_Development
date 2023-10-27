@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from .models import UserWallet, UserPosition, StakingPool, PoolConditions
-from user.serializers import UserSerializer
+from user.serializers import UserSerializer, UserCardSerializer
 
 
 class UserWalletSerializer(serializers.ModelSerializer):
@@ -13,7 +13,7 @@ class UserWalletSerializer(serializers.ModelSerializer):
 
 
 class UserWalletDetailSerializer(UserWalletSerializer):
-    user = UserSerializer()
+    user = UserCardSerializer()
 
     class Meta:
         model = UserWallet
@@ -27,7 +27,7 @@ class UserPositionSerializer(serializers.ModelSerializer):
 
 
 class UserPositionDetailSerializer(UserPositionSerializer):
-    user = UserSerializer(read_only=True, many=False)
+    user = UserCardSerializer(read_only=True, many=False)
 
     class Meta:
         model = UserPosition
