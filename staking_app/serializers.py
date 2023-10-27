@@ -35,15 +35,15 @@ class UserPositionDetailSerializer(UserPositionSerializer):
 
 
 class StakingPoolSerializer(serializers.ModelSerializer):
-    stak_holders_number = serializers.SerializerMethodField()
+    number_of_stack_holders = serializers.SerializerMethodField()
 
     @staticmethod
-    def get_stak_holders_number(obj):
+    def get_number_of_stack_holders(obj):
         return obj.stak_holders.count()
 
     class Meta:
         model = StakingPool
-        fields = ("id", "name", "description", "stak_holders_number", "created_at")
+        fields = ("id", "name", "description", "number_of_stack_holders", "created_at")
 
 
 class StakingPoolDetailSerializer(StakingPoolSerializer):
@@ -51,7 +51,7 @@ class StakingPoolDetailSerializer(StakingPoolSerializer):
 
     class Meta:
         model = StakingPool
-        fields = ("id", "name", "description", "stak_holders_number", "stak_holders", "created_at")
+        fields = ("id", "name", "description", "number_of_stack_holders", "stak_holders", "created_at")
 
 
 class PoolConditionsSerializer(serializers.ModelSerializer):
