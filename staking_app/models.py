@@ -21,8 +21,8 @@ class UserPosition(models.Model):
         return f"{self.user.full_name} - {self.cryptocurrency} - {self.amount}"
 
 
-class StackingPool(models.Model):
-    stack_holders = models.ManyToManyField(
+class StakingPool(models.Model):
+    stak_holders = models.ManyToManyField(
         settings.AUTH_USER_MODEL, related_name="stacking_pools", blank=True
     )
     name = models.CharField(max_length=100)
@@ -34,7 +34,7 @@ class StackingPool(models.Model):
 
 
 class PoolConditions(models.Model):
-    pool = models.ForeignKey(StackingPool, on_delete=models.CASCADE)
+    pool = models.ForeignKey(StakingPool, on_delete=models.CASCADE)
     minimum_stake = models.DecimalField(max_digits=20, decimal_places=5)
     annual_percentage_yield = models.FloatField()
 
