@@ -21,7 +21,7 @@ class UserWalletViewSet(viewsets.ModelViewSet):
 
 
 class UserPositionViewSet(viewsets.ModelViewSet):
-    queryset = UserPosition.objects.all()
+    queryset = UserPosition.objects.all().select_related("user")
     serializer_class = UserPositionSerializer
 
     def get_serializer_class(self):
