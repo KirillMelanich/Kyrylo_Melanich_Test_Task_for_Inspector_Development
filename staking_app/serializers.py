@@ -11,9 +11,24 @@ class UserWalletSerializer(serializers.ModelSerializer):
         model = UserWallet
         fields = ("id", "user_id", "balance")
 
+    def create(self, validated_data):
+        request = self.context.get("request")
+        user = request.user
 
-class UserWalletDetailSerializer(UserWalletSerializer):
-    user = UserCardSerializer()
+        # Check if the user already has a wallet
+        if UserWallet.objects.filter(user=user).exists():
+            raise serializers.ValidationError("User already has a wallet.")
+
+        # Extract the 'balance' data from validated_data
+        balance = validated_data.pop("balance", None)
+
+        # Create the UserWallet instance
+        user_wallet = UserWallet.objects.create(user=user, balance=balance)
+        return user_wallet
+
+
+class UserWalletDetailSerializer(serializers.ModelSerializer):
+    user = UserCardSerializer(read_only=True)
 
     class Meta:
         model = UserWallet
@@ -23,7 +38,8 @@ class UserWalletDetailSerializer(UserWalletSerializer):
 class UserPositionSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserPosition
-        fields = "__all__"
+        fields = ("id", "cryptocurrency", "amount", "user")
+        read_only_fields = ("user",)
 
 
 class UserPositionDetailSerializer(UserPositionSerializer):
@@ -47,11 +63,18 @@ class StakingPoolSerializer(serializers.ModelSerializer):
 
 
 class StakingPoolDetailSerializer(StakingPoolSerializer):
-    stak_holders = UserSerializer(read_only=True, many=True)
+    stak_holders = UserSerializer(read_only=False, many=True)
 
     class Meta:
         model = StakingPool
-        fields = ("id", "name", "description", "number_of_stack_holders", "stak_holders", "created_at")
+        fields = (
+            "id",
+            "name",
+            "description",
+            "number_of_stack_holders",
+            "stak_holders_set",
+            "created_at",
+        )
 
 
 class PoolConditionsSerializer(serializers.ModelSerializer):
