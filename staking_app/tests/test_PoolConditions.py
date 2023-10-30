@@ -13,6 +13,7 @@ class UnauthentikatedPoolConditionApiTest(TestCase):
     """
     Checking that only authenticated user can have access to endpoint
     """
+
     def setUp(self):
         self.client = APIClient()
 
@@ -25,8 +26,11 @@ class PoolConditionsCreationTest(TestCase):
     """
     Checking ability to create PoolCondition instance
     """
+
     def setUp(self):
-        self.pool = StakingPool.objects.create(name='Test Pool', description='Test Description')
+        self.pool = StakingPool.objects.create(
+            name="Test Pool", description="Test Description"
+        )
         self.pool_condition = PoolConditions.objects.create(
             pool=self.pool, minimum_stake=1000.00000, annual_percentage_yield=5.0
         )

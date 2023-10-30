@@ -14,6 +14,7 @@ class UnauthentikatedWalletApiTest(TestCase):
     """
     Checking that only authenticated user can have access to endpoint
     """
+
     def setUp(self):
         self.client = APIClient()
 
@@ -26,6 +27,7 @@ class UserWalletCreationTest(TestCase):
     """
     Checking ability to create UserWallet instance
     """
+
     def setUp(self):
         self.user = get_user_model().objects.create_user(
             email="test@example.com",
@@ -36,7 +38,3 @@ class UserWalletCreationTest(TestCase):
     def test_user_wallet_creation(self):
         self.assertEqual(self.user_wallet.user, self.user)
         self.assertEqual(self.user_wallet.balance, 1000.00000)
-
-
-
-

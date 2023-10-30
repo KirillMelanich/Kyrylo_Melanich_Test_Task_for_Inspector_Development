@@ -14,7 +14,7 @@ class UnauthentikatedStakingPoolApiTest(TestCase):
     """
     Checking that only authenticated user can have access to endpoint
     """
-    
+
     def setUp(self):
         self.client = APIClient()
 
@@ -28,14 +28,16 @@ class StakingPoolTest(TestCase):
         self.user1 = get_user_model().objects.create(email="test1@example.com")
         self.user2 = get_user_model().objects.create(email="test2@example.com")
         self.staking_pool = StakingPool.objects.create(
-            name="Pool A",
-            description="This is a staking pool for testing purposes."
+            name="Pool A", description="This is a staking pool for testing purposes."
         )
         self.staking_pool.stak_holders.add(self.user1, self.user2)
 
     def test_staking_pool_creation(self):
         self.assertEqual(self.staking_pool.name, "Pool A")
-        self.assertEqual(self.staking_pool.description, "This is a staking pool for testing purposes.")
+        self.assertEqual(
+            self.staking_pool.description,
+            "This is a staking pool for testing purposes.",
+        )
 
     def test_staking_pool_str_method(self):
         expected_string = "Pool A"

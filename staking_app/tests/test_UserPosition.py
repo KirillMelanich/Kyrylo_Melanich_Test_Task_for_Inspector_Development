@@ -15,6 +15,7 @@ class UnauthentikatedUserPositionApiTest(TestCase):
     """
     Checking that only authenticated user can have access to endpoint
     """
+
     def setUp(self):
         self.client = APIClient()
 
@@ -27,6 +28,7 @@ class UserPositionCreationTest(TestCase):
     """
     Checking ability to create UserWallet instance
     """
+
     def setUp(self):
         self.user = User.objects.create(email="test@example.com")
         self.user_wallet = UserWallet.objects.create(user=self.user, balance=5000.00000)
@@ -38,9 +40,3 @@ class UserPositionCreationTest(TestCase):
         self.assertEqual(self.user_position.user, self.user)
         self.assertEqual(self.user_position.amount, 2000.00000)
         self.assertEqual(self.user_position.cryptocurrency, "bitcoin")
-
-
-
-
-
-
