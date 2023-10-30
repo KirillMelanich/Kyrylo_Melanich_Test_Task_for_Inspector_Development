@@ -63,7 +63,7 @@ class StakingPoolSerializer(serializers.ModelSerializer):
 
 
 class StakingPoolDetailSerializer(StakingPoolSerializer):
-    stak_holders = UserSerializer(read_only=False, many=True)
+    stak_holders = UserSerializer(many=True, read_only=False)
 
     class Meta:
         model = StakingPool
@@ -72,7 +72,7 @@ class StakingPoolDetailSerializer(StakingPoolSerializer):
             "name",
             "description",
             "number_of_stack_holders",
-            "stak_holders_set",
+            "stak_holders",
             "created_at",
         )
 
