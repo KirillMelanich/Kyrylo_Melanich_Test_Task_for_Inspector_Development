@@ -38,3 +38,9 @@ This API allows an authorized user to create a wallet with a certain balance of 
 Use credentials for login:
   - email: admin@admin.com
   - password: 1234
+```
+
+6. For Docker usage run:
+```
+   docker-compose up
+```
