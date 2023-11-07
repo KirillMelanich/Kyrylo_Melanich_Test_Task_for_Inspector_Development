@@ -23,3 +23,36 @@ services:
       - "5433:5432"
     env_file:
       - .env
+#version: "3"
+#
+#services:
+#  app:
+#    build:
+#      context: .
+#    ports:
+#      - "8000:8000"
+#      - "8001:8001"  # Add the port for the FastAPI service
+#    volumes:
+#      - ./:/app
+#    env_file:
+#      - .env
+#    command: >
+#      sh -c "python manage.py wait_for_db &&
+#             python manage.py migrate &&
+#             python manage.py runserver 0.0.0.0:8000"
+#
+#    depends_on:
+#      - db
+#      - fastapi-service  # Add the FastAPI service as a dependency
+#  db:
+#    image: postgres:14-alpine
+#    ports:
+#      - "5433:5432"
+#    env_file:
+#      - .env
+#  fastapi-service:  # Add the FastAPI service definition
+#    build:
+#      context: ./fastapi_service
+#      dockerfile: Dockerfile
+#    ports:
+#      - "8001:8001"  # Ensure the port matches the one in the FastAPI application

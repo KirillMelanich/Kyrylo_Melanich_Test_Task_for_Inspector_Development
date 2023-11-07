@@ -3,7 +3,7 @@ import requests
 
 app = FastAPI()
 
-DJANGO_API_URL = "http://127.0.0.1:8000/api/"
+DJANGO_API_URL = "http://127.0.0.1:8001/api/"
 
 
 @app.post("/create_user_pool/")
